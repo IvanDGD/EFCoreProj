@@ -11,7 +11,9 @@ namespace FirstEFCoreIntro.Entities
         public int Id { get; set; }
         public string FullName { get; set; }
         public int Age { get; set; }
-        public int Salary { get; set; }
+        public float Salary { get; set; }
+
+        public List<Subject> Subjects { get; set; }
 
         public override string ToString()
         {
