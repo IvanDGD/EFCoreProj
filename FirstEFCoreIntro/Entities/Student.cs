@@ -19,7 +19,7 @@ namespace FirstEFCoreIntro.Entities
         public int Age { get; set; }
 
         public string Email { get; set; } = null!;
-        public float? Scholarship { get; set; }
+        public decimal? Scholarship { get; set; }
 
         public StudyFormat StudyFormat { get; set; }
         public int GroupId { get; set; }

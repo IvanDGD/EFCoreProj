@@ -3,6 +3,7 @@ using FirstEFCoreIntro;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstEFCoreIntro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250601125710_StudentGroupView")]
+    partial class StudentGroupView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,8 +110,8 @@ namespace FirstEFCoreIntro.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Scholarship")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float?>("Scholarship")
+                        .HasColumnType("real");
 
                     b.Property<int>("StudyFormat")
                         .HasColumnType("int");
@@ -122,7 +125,7 @@ namespace FirstEFCoreIntro.Migrations
 
             modelBuilder.Entity("FirstEFCoreIntro.Entities.StudentGroupView", b =>
                 {
-                    b.Property<string>("GroupsName")
+                    b.Property<string>("GroupName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

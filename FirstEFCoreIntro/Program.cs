@@ -1,6 +1,7 @@
 ﻿using FirstEFCoreIntro.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 
 namespace FirstEFCoreIntro
 {
@@ -13,47 +14,51 @@ namespace FirstEFCoreIntro
 
             AppDbContext db = new AppDbContext();
 
-            int choose;
-            do
+            bool exit = false;
+            while (!exit)
             {
-                Console.WriteLine("\n==== Главное меню Академии ====");
-                Console.WriteLine("1. Работа с группами");
-                Console.WriteLine("2. Работа со студентами");
-                Console.WriteLine("3. Работа с преподавателями");
-                Console.WriteLine("4. Работа с кафедрами");
-                Console.WriteLine("5. Работа с предметами");
-                Console.WriteLine("6. Работа с паспортами");
+                Console.WriteLine("\n=== Главное меню ===");
+                Console.WriteLine("1. Группы");
+                Console.WriteLine("2. Студенты");
+                Console.WriteLine("3. Преподаватели");
+                Console.WriteLine("4. Кафедры");
+                Console.WriteLine("5. Предметы");
+                Console.WriteLine("6. Паспорта");
                 Console.WriteLine("0. Выход");
-                Console.Write("Выберите раздел: ");
-                choose = int.Parse(Console.ReadLine());
-                Console.WriteLine();
 
-                switch (choose)
+                Console.Write("Выберите действие: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
                 {
-                    case 1:
+                    case "1":
                         GroupMenu(db);
                         break;
-                    case 2:
+                    case "2":
                         StudentMenu(db);
                         break;
-                    case 3:
+                    case "3":
                         TeacherMenu(db);
                         break;
-                    case 4:
+                    case "4":
                         DepartmentMenu(db);
                         break;
-                    case 5:
+                    case "5":
                         SubjectMenu(db);
                         break;
-                    case 6:
+                    case "6":
                         PassportMenu(db);
                         break;
+                    case "0":
+                        exit = true;
+                        break;
                     default:
-                        Console.WriteLine("Неверный ввод. Повторите.");
+                        Console.WriteLine("Неверный выбор.");
                         break;
                 }
-            } while (choose != 0);
+            }
         }
+
 
         static void GroupMenu(AppDbContext db)
         {
@@ -95,7 +100,7 @@ namespace FirstEFCoreIntro
         }
         static void AddGroup(AppDbContext db)
         {
-            Group group = new Group;
+            Group group = new Group();
             Console.Write("Введите название группы (до 10 символов): ");
             group.Name = Console.ReadLine();
             db.Groups.Add(group);
@@ -110,8 +115,10 @@ namespace FirstEFCoreIntro
             }
         }
         static void UpdateGroup(AppDbContext db)
-        { 
-            var group = db.Groups.FirstOrDefault(g => g.Id == id);
+        {
+            Console.WriteLine("Enter id: ");
+            int Id = int.Parse(Console.ReadLine());
+            var group = db.Groups.FirstOrDefault(g => g.Id == Id);
             if (group == null)
             {
                 Console.WriteLine("Группа не найдена.");
@@ -196,7 +203,7 @@ namespace FirstEFCoreIntro
             student.Email = Console.ReadLine();
 
             Console.Write("Стипендия: ");
-            student.Scholarship = float.Parse(Console.ReadLine());
+            student.Scholarship = decimal.Parse(Console.ReadLine());
 
             Console.Write("Формат обучения (0 - Очный, 1 - Заочный): ");
             student.StudyFormat = (StudyFormat)int.Parse(Console.ReadLine());
@@ -231,7 +238,7 @@ namespace FirstEFCoreIntro
             student.Email = Console.ReadLine();
 
             Console.Write("Новая стипендия: ");
-            student.Scholarship = float.Parse(Console.ReadLine());
+            student.Scholarship = decimal.Parse(Console.ReadLine());
 
             Console.Write("Новый формат обучения (0 - Очный, 1 - Заочный): ");
             student.StudyFormat = (StudyFormat)int.Parse(Console.ReadLine());
